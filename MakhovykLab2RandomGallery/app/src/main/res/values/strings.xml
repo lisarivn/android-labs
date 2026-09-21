@@ -1,3 +1,25 @@
 <resources>
+
     <string name="app_name">MakhovykLab2RandomGallery</string>
+
+    <string name="update">Update</string>
+    <string name="updating_gallery">Updating gallery</string>
+    <string name="update_scheduled">Update scheduled</string>
+    <string name="update_available">Update available</string>
+    <string name="gallery_updated">Gallery updated</string>
+    <string name="gallery_update_failed">Gallery update failed</string>
+
+    <string name="random_gallery">Random Gallery</string>
+    <string name="no_photos_yet">No photos yet</string>
+    <string name="synchronization_progress">Synchronization: %1$d%%</string>
+    <string name="synchronization_completed">Synchronization completed</string>
+    <string name="synchronization_failed">Synchronization failed</string>
+    <string name="synchronization_progress_preview">Synchronization: 0%</string>
+
+    <string name="notification_check_updates">Check for gallery updates?</string>
+    <string name="check">Check</string>
+    <string name="cancel">Cancel</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="gallery_update_available">Gallery update available</string>
+
 </resources>
