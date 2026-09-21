@@ -30,6 +30,10 @@
 
         </activity>
 
+        <service
+            android:name=".HistoryIntentService"
+            android:exported="false" />
+
     </application>
 
 </manifest>

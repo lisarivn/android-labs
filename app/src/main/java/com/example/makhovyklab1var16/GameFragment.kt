@@ -15,6 +15,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.example.makhovyklab1var16.databinding.FragmentGameBinding
 import kotlin.random.Random
+import android.os.SystemClock
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import android.content.res.Configuration
 
 class GameFragment : Fragment() {
 
@@ -40,6 +45,11 @@ class GameFragment : Fragment() {
 
     private var startTimer: CountDownTimer? = null
     private var gameTimer: CountDownTimer? = null
+
+    private var countdownEndTime = 0L
+    private var gameEndTime = 0L
+
+    private var countdownRunning = false
 
     private val moveCellRunnable = object : Runnable {
 
@@ -101,54 +111,208 @@ class GameFragment : Fragment() {
             savedInstanceState
         )
 
-        binding.timeTextView.text =
-            gameTime.toString()
-
-        binding.scoreTextView.text =
-            score.toString()
-
         binding.finishButton.setOnClickListener {
             finishGame()
         }
 
-        startCountdown()
+        if (savedInstanceState == null) {
+
+            score = 0
+
+            binding.scoreTextView.text =
+                score.toString()
+
+            binding.timeTextView.text =
+                gameTime.toString()
+
+            startCountdown()
+
+        } else {
+
+            restoreGameState(savedInstanceState)
+        }
     }
 
-    private fun startCountdown() {
+    private fun restoreGameState(
+        savedInstanceState: Bundle
+    ) {
+
+        score = savedInstanceState.getInt(
+            STATE_SCORE,
+            0
+        )
+
+        activeCellIndex =
+            savedInstanceState.getInt(
+                STATE_ACTIVE_CELL,
+                -1
+            )
+
+        gameRunning =
+            savedInstanceState.getBoolean(
+                STATE_GAME_RUNNING,
+                false
+            )
+
+        countdownRunning =
+            savedInstanceState.getBoolean(
+                STATE_COUNTDOWN_RUNNING,
+                false
+            )
+
+        countdownEndTime =
+            savedInstanceState.getLong(
+                STATE_COUNTDOWN_END_TIME,
+                0L
+            )
+
+        gameEndTime =
+            savedInstanceState.getLong(
+                STATE_GAME_END_TIME,
+                0L
+            )
+
+        binding.scoreTextView.text =
+            score.toString()
+
+        when {
+
+            countdownRunning -> {
+                restoreCountdown()
+            }
+
+            gameRunning -> {
+                restoreRunningGame()
+            }
+
+            else -> {
+                startCountdown()
+            }
+        }
+    }
+
+    private fun restoreRunningGame() {
+
+        val savedActiveCell =
+            activeCellIndex
+
+        createGrid()
+
+        activeCellIndex =
+            savedActiveCell
+
+        if (
+            activeCellIndex >= 0 &&
+            activeCellIndex < cells.size
+        ) {
+            cells[activeCellIndex]
+                .setBackgroundColor(
+                    Color.rgb(0, 180, 120)
+                )
+        }
+
+        binding.scoreTextView.text =
+            score.toString()
+
+        val remainingTime =
+            gameEndTime -
+                    SystemClock.elapsedRealtime()
+
+        if (remainingTime <= 0) {
+
+            binding.timeTextView.text = "0"
+
+            finishGame()
+
+            return
+        }
+
+        val secondsLeft =
+            kotlin.math.ceil(
+                remainingTime / 1000.0
+            ).toInt()
+
+        binding.timeTextView.text =
+            secondsLeft.toString()
+
+        gameRunning = true
+
+        handler.postDelayed(
+            moveCellRunnable,
+            getRandomDelay()
+        )
+
+        startGameTimer(remainingTime)
+    }
+
+    private fun restoreCountdown() {
+
+        val remainingTime =
+            countdownEndTime -
+                    SystemClock.elapsedRealtime()
+
+        if (remainingTime > 0) {
+
+            startCountdown(remainingTime)
+
+        } else {
+
+            countdownRunning = false
+            countdownEndTime = 0L
+
+            binding.countdownTextView.visibility =
+                View.GONE
+
+            startGame()
+        }
+    }
+
+    private fun startCountdown(
+        remainingTime: Long = 3000L
+    ) {
+        countdownRunning = true
 
         binding.countdownTextView.visibility =
             View.VISIBLE
 
-        startTimer = object : CountDownTimer(
-            3000,
-            1000
-        ) {
+        countdownEndTime =
+            SystemClock.elapsedRealtime() + remainingTime
 
-            override fun onTick(
-                millisUntilFinished: Long
+        startTimer =
+            object : CountDownTimer(
+                remainingTime,
+                1000
             ) {
 
-                val seconds =
-                    kotlin.math.ceil(
-                        millisUntilFinished / 1000.0
-                    ).toInt()
+                override fun onTick(
+                    millisUntilFinished: Long
+                ) {
 
-                binding.countdownTextView.text =
-                    seconds.toString()
-            }
+                    val seconds =
+                        kotlin.math.ceil(
+                            millisUntilFinished / 1000.0
+                        ).toInt()
 
-            override fun onFinish() {
-
-                if (gameFinished) {
-                    return
+                    binding.countdownTextView.text =
+                        seconds.toString()
                 }
 
-                binding.countdownTextView.visibility =
-                    View.GONE
+                override fun onFinish() {
 
-                startGame()
+                    if (gameFinished) {
+                        return
+                    }
+
+                    countdownRunning = false
+
+                    countdownEndTime = 0L
+
+                    binding.countdownTextView.visibility =
+                        View.GONE
+
+                    startGame()
+                }
             }
-        }
 
         startTimer?.start()
     }
@@ -169,35 +333,79 @@ class GameFragment : Fragment() {
         startGameTimer()
     }
 
-    private fun startGameTimer() {
+    private fun startGameTimer(
+        remainingTime: Long = gameTime * 1000L
+    ) {
 
-        gameTimer = object : CountDownTimer(
-            gameTime * 1000L,
-            1000
-        ) {
+        gameEndTime =
+            SystemClock.elapsedRealtime() + remainingTime
 
-            override fun onTick(
-                millisUntilFinished: Long
+        gameTimer =
+            object : CountDownTimer(
+                remainingTime,
+                1000
             ) {
 
-                val secondsLeft =
-                    kotlin.math.ceil(
-                        millisUntilFinished / 1000.0
-                    ).toInt()
+                override fun onTick(
+                    millisUntilFinished: Long
+                ) {
 
-                binding.timeTextView.text =
-                    secondsLeft.toString()
+                    val secondsLeft =
+                        kotlin.math.ceil(
+                            millisUntilFinished / 1000.0
+                        ).toInt()
+
+                    binding.timeTextView.text =
+                        secondsLeft.toString()
+                }
+
+                override fun onFinish() {
+
+                    gameEndTime = 0L
+
+                    binding.timeTextView.text = "0"
+
+                    finishGame()
+                }
             }
-
-            override fun onFinish() {
-
-                binding.timeTextView.text = "0"
-
-                finishGame()
-            }
-        }
 
         gameTimer?.start()
+    }
+
+    override fun onSaveInstanceState(
+        outState: Bundle
+    ) {
+        super.onSaveInstanceState(outState)
+
+        outState.putInt(
+            STATE_SCORE,
+            score
+        )
+
+        outState.putInt(
+            STATE_ACTIVE_CELL,
+            activeCellIndex
+        )
+
+        outState.putBoolean(
+            STATE_GAME_RUNNING,
+            gameRunning
+        )
+
+        outState.putBoolean(
+            STATE_COUNTDOWN_RUNNING,
+            countdownRunning
+        )
+
+        outState.putLong(
+            STATE_COUNTDOWN_END_TIME,
+            countdownEndTime
+        )
+
+        outState.putLong(
+            STATE_GAME_END_TIME,
+            gameEndTime
+        )
     }
 
     private fun createGrid() {
@@ -208,17 +416,37 @@ class GameFragment : Fragment() {
 
         activeCellIndex = -1
 
-        val cellSizeDp = when (gridSize) {
-            5 -> 50
-            4 -> 60
-            else -> 75
-        }
+        val isLandscape =
+            resources.configuration.orientation ==
+                    Configuration.ORIENTATION_LANDSCAPE
+
+        val cellSizeDp =
+            if (isLandscape) {
+
+                when (gridSize) {
+                    5 -> 38
+                    4 -> 45
+                    else -> 55
+                }
+
+            } else {
+
+                when (gridSize) {
+                    5 -> 50
+                    4 -> 60
+                    else -> 75
+                }
+            }
 
         val cellSizePx =
             dpToPx(cellSizeDp)
 
         val margin =
-            dpToPx(4)
+            if (isLandscape) {
+                dpToPx(2)
+            } else {
+                dpToPx(4)
+            }
 
         for (row in 0 until gridSize) {
 
@@ -365,7 +593,31 @@ class GameFragment : Fragment() {
         binding.countdownTextView.visibility =
             View.GONE
 
+        saveResult()
+
         showResultDialog()
+    }
+
+    private fun saveResult() {
+
+        val dateFormat =
+            SimpleDateFormat(
+                "dd.MM.yyyy HH:mm",
+                Locale.getDefault()
+            )
+
+        val result = GameResult(
+            dateTime = dateFormat.format(Date()),
+            score = score,
+            gridSize = gridSize,
+            gameTime = gameTime,
+            speedOption = speedOption
+        )
+
+        val storage =
+            ResultStorage(requireContext())
+
+        storage.saveResult(result)
     }
 
     private fun showResultDialog() {
@@ -421,6 +673,24 @@ class GameFragment : Fragment() {
     }
 
     companion object {
+
+        private const val STATE_SCORE =
+            "STATE_SCORE"
+
+        private const val STATE_ACTIVE_CELL =
+            "STATE_ACTIVE_CELL"
+
+        private const val STATE_GAME_RUNNING =
+            "STATE_GAME_RUNNING"
+
+        private const val STATE_COUNTDOWN_RUNNING =
+            "STATE_COUNTDOWN_RUNNING"
+
+        private const val STATE_COUNTDOWN_END_TIME =
+            "STATE_COUNTDOWN_END_TIME"
+
+        private const val STATE_GAME_END_TIME =
+            "STATE_GAME_END_TIME"
 
         private const val ARG_GRID_SIZE =
             "GRID_SIZE"

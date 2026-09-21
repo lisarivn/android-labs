@@ -37,6 +37,22 @@ class SettingsFragment : Fragment() {
         binding.startButton.setOnClickListener {
             startGame()
         }
+
+        binding.historyButton.setOnClickListener {
+            openHistory()
+        }
+    }
+
+    private fun openHistory() {
+
+        parentFragmentManager
+            .beginTransaction()
+            .replace(
+                R.id.fragmentContainer,
+                HistoryFragment()
+            )
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun startGame() {
