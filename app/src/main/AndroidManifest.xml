@@ -18,11 +18,6 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".GameActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-
-        <activity
             android:name=".SplashActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
