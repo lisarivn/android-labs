@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MakhovykLab1</string>
+    <string name="app_logo">App Logo</string>
+    <string name="app_version">App Version: %1$s</string>
+
+    <!-- Menu -->
+    <string name="menu">Main Menu</string>
+    <string name="get_variant">Get Variant</string>
+    <string name="options">Options</string>
+    <string name="quit">Quit</string>
+
+    <!-- Options -->
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="group">Group</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Results -->
+    <string name="results">Results</string>
+    <string name="variant">Variant</string>
+    <string name="done">Done</string>
+    <string name="try_again">Try Again</string>
+    <string name="back">Back</string>
+
+    <!-- Errors -->
+    <string name="empty_fields_error">Some fields are empty</string>
+    <string name="error">Error! Please check your internet connection and try again</string>
+
+    <!-- Temporary string from the original activity -->
+
+</resources>

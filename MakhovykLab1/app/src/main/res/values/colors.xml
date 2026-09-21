@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_primary">#008577</color>
+    <color name="color_primary_dark">#00574B</color>
+    <color name="color_accent">#D81B60</color>
+
+    <color name="primary_text">#232323</color>
+    <color name="secondary_text">#868686</color>
+
+    <color name="button">@color/color_primary</color>
+    <color name="button_pressed">@color/color_primary_dark</color>
+    <color name="button_disabled">#C0C0C0</color>
+
+    <color name="secondary_button">#C8C8C8</color>
+    <color name="secondary_button_pressed">#A8A8A8</color>
+    <color name="secondary_button_disabled">#C8C8C8</color>
+
+    <color name="button_text">@android:color/white</color>
+    <color name="button_text_disabled">#989898</color>
+
+    <color name="secondary_button_text">@color/primary_text</color>
+    <color name="secondary_button_text_disabled">#A0A0A0</color>
+
+    <color name="error">#EF0022</color>
+</resources>

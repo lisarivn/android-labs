@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="screen_padding">16dp</dimen>
+    <dimen name="button_radius">4dp</dimen>
+    <dimen name="menu_button_width">180dp</dimen>
+    <dimen name="input_width">260dp</dimen>
+    <dimen name="input_margin">24dp</dimen>
+    <dimen name="hint_margin">4dp</dimen>
+    <dimen name="app_name_text_size">20sp</dimen>
+    <dimen name="logo_size">64dp</dimen>
+    <dimen name="logo_margin">24dp</dimen>
+    <dimen name="app_title_margin">16dp</dimen>
+    <dimen name="menu_item_space">24dp</dimen>
+    <dimen name="menu_item_height">52dp</dimen>
+    <dimen name="button_margin">8dp</dimen>
+    <dimen name="bottom_buttons_space">4dp</dimen>
+</resources>
