@@ -87,7 +87,6 @@ class MainActivity :
     ) {
         when {
             syncState.isInProgress() -> {
-
                 binding.messageContainer.visibility =
                     View.VISIBLE
 
@@ -97,15 +96,14 @@ class MainActivity :
                 binding.progressTextView.visibility =
                     View.VISIBLE
 
-                binding.messageTextView.text =
-                    getString(R.string.update_available)
+                binding.progressTextView.text =
+                    "${syncState.getProgressPercentage()}%"
 
                 binding.actionTextView.visibility =
                     View.GONE
             }
 
             syncState.isScheduled() -> {
-
                 binding.messageContainer.visibility =
                     View.VISIBLE
 
@@ -120,7 +118,6 @@ class MainActivity :
             }
 
             syncState.hasUpdates() -> {
-
                 binding.messageContainer.visibility =
                     View.VISIBLE
 
@@ -135,7 +132,6 @@ class MainActivity :
             }
 
             else -> {
-
                 binding.messageContainer.visibility =
                     View.GONE
             }
@@ -145,7 +141,7 @@ class MainActivity :
     override fun onSyncFinished() {
         Toast.makeText(
             this,
-            R.string.gallery_update_failed,
+            R.string.gallery_updated,
             Toast.LENGTH_SHORT
         ).show()
     }
@@ -153,7 +149,7 @@ class MainActivity :
     override fun onSyncFailed() {
         Toast.makeText(
             this,
-            "Gallery update failed",
+            R.string.gallery_update_failed,
             Toast.LENGTH_SHORT
         ).show()
     }

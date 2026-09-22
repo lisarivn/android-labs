@@ -86,7 +86,7 @@ class ActionsHandlerService : Service() {
         Handler(Looper.getMainLooper()).post {
             Toast.makeText(
                 this,
-                R.string.cancelled,
+                R.string.gallery_update_available,
                 Toast.LENGTH_SHORT
             ).show()
         }
