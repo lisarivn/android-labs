@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:paddingStart="24dp"
     android:paddingEnd="24dp"
-    tools:context=".GameFragment">
+    tools:context=".fragment.GameFragment">
 
     <TextView
         android:id="@+id/gameTitleTextView"

@@ -1,4 +1,4 @@
-package com.example.makhovyklab1var16;
+package com.example.makhovyklab1var16.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.os.Looper;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.makhovyklab1var16.R;
 
 public class SplashActivity extends AppCompatActivity {
 

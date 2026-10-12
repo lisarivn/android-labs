@@ -9,7 +9,7 @@
     android:paddingEnd="24dp"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
-    tools:context=".GameFragment">
+    tools:context=".fragment.GameFragment">
 
     <TextView
         android:id="@+id/gameTitleTextView"

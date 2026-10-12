@@ -1,4 +1,4 @@
-package com.example.makhovyklab1var16
+package com.example.makhovyklab1var16.model
 
 data class GameResult(
     val dateTime: String,

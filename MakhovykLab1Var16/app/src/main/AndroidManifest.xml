@@ -10,15 +10,16 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MakhovykLab1Var16">
+        android:theme="@style/Theme.MakhovykLab1Var16"
+        android:name="App">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".activity.SplashActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
 
@@ -29,10 +30,6 @@
             </intent-filter>
 
         </activity>
-
-        <service
-            android:name=".HistoryIntentService"
-            android:exported="false" />
 
     </application>
 

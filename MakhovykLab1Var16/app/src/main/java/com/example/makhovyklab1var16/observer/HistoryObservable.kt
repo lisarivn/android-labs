@@ -1,4 +1,6 @@
-package com.example.makhovyklab1var16
+package com.example.makhovyklab1var16.observer
+
+import com.example.makhovyklab1var16.model.GameResult
 
 object HistoryObservable {
 

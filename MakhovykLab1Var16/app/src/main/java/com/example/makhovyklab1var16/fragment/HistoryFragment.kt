@@ -1,13 +1,17 @@
-package com.example.makhovyklab1var16
+package com.example.makhovyklab1var16.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.example.makhovyklab1var16.databinding.FragmentHistoryBinding
 import android.widget.TextView
-import android.content.Intent
+import androidx.fragment.app.Fragment
+import com.example.makhovyklab1var16.model.GameResult
+import com.example.makhovyklab1var16.observer.HistoryObservable
+import com.example.makhovyklab1var16.observer.HistoryObserver
+import com.example.makhovyklab1var16.databinding.FragmentHistoryBinding
+import com.example.makhovyklab1var16.App
 
 class HistoryFragment :
     Fragment(),
@@ -93,7 +97,7 @@ class HistoryFragment :
                         )
 
                     divider.setBackgroundColor(
-                        android.graphics.Color.LTGRAY
+                        Color.LTGRAY
                     )
 
                     binding.historyContainer.addView(divider)
@@ -134,7 +138,7 @@ class HistoryFragment :
                     )
 
                 divider.setBackgroundColor(
-                    android.graphics.Color.LTGRAY
+                    Color.LTGRAY
                 )
 
                 binding.historyContainer.addView(divider)
@@ -159,12 +163,8 @@ class HistoryFragment :
 
         HistoryObservable.addObserver(this)
 
-        val intent = Intent(
-            requireContext(),
-            HistoryIntentService::class.java
-        )
-
-        requireContext().startService(intent)
+        val app = requireActivity().application as App
+        app.historyWorker.loadResults()
     }
 
     override fun onStop() {

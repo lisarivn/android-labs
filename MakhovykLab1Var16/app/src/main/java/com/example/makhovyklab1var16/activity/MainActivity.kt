@@ -1,9 +1,11 @@
-package com.example.makhovyklab1var16
+package com.example.makhovyklab1var16.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.makhovyklab1var16.R
+import com.example.makhovyklab1var16.fragment.SettingsFragment
 import com.example.makhovyklab1var16.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

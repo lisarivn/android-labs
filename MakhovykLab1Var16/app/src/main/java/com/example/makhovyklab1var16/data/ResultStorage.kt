@@ -1,6 +1,7 @@
-package com.example.makhovyklab1var16
+package com.example.makhovyklab1var16.data
 
 import android.content.Context
+import com.example.makhovyklab1var16.model.GameResult
 
 class ResultStorage(
     private val context: Context

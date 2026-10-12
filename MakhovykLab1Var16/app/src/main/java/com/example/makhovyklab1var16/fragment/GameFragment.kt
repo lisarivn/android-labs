@@ -1,10 +1,12 @@
-package com.example.makhovyklab1var16
+package com.example.makhovyklab1var16.fragment
 
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.os.SystemClock
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -13,13 +15,15 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.example.makhovyklab1var16.model.GameResult
+import com.example.makhovyklab1var16.R
 import com.example.makhovyklab1var16.databinding.FragmentGameBinding
-import kotlin.random.Random
-import android.os.SystemClock
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import android.content.res.Configuration
+import kotlin.math.ceil
+import kotlin.random.Random
+import com.example.makhovyklab1var16.App
 
 class GameFragment : Fragment() {
 
@@ -228,7 +232,7 @@ class GameFragment : Fragment() {
         }
 
         val secondsLeft =
-            kotlin.math.ceil(
+            ceil(
                 remainingTime / 1000.0
             ).toInt()
 
@@ -289,7 +293,7 @@ class GameFragment : Fragment() {
                 ) {
 
                     val seconds =
-                        kotlin.math.ceil(
+                        ceil(
                             millisUntilFinished / 1000.0
                         ).toInt()
 
@@ -351,7 +355,7 @@ class GameFragment : Fragment() {
                 ) {
 
                     val secondsLeft =
-                        kotlin.math.ceil(
+                        ceil(
                             millisUntilFinished / 1000.0
                         ).toInt()
 
@@ -614,10 +618,8 @@ class GameFragment : Fragment() {
             speedOption = speedOption
         )
 
-        val storage =
-            ResultStorage(requireContext())
-
-        storage.saveResult(result)
+        val app = requireActivity().application as App
+        app.historyWorker.saveResult(result)
     }
 
     private fun showResultDialog() {
