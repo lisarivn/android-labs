@@ -1,8 +1,9 @@
-package com.example.makhovyklab2randomgallery
+package com.example.makhovyklab2randomgallery.state
 
+import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import android.content.Context
+import com.example.makhovyklab2randomgallery.service.SyncService
 
 class SyncState(context: Context) {
 

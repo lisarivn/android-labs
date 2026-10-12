@@ -1,9 +1,11 @@
-package com.example.makhovyklab2randomgallery
+package com.example.makhovyklab2randomgallery.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.makhovyklab2randomgallery.App
+import com.example.makhovyklab2randomgallery.data.GalleryRequestHandler
 import com.example.makhovyklab2randomgallery.databinding.ItemPhotoBinding
 import ua.cn.stu.randomgallery.LocalPhoto
 

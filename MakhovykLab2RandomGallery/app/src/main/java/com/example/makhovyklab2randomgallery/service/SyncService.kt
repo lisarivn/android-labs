@@ -1,4 +1,4 @@
-package com.example.makhovyklab2randomgallery
+package com.example.makhovyklab2randomgallery.service
 
 import android.app.job.JobInfo
 import android.app.job.JobParameters
@@ -7,6 +7,8 @@ import android.app.job.JobService
 import android.content.ComponentName
 import android.content.Context
 import android.util.Log
+import com.example.makhovyklab2randomgallery.App
+import com.example.makhovyklab2randomgallery.state.SyncState
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 

@@ -1,12 +1,14 @@
-package com.example.makhovyklab2randomgallery
+package com.example.makhovyklab2randomgallery.service
 
 import android.app.Service
 import android.content.Intent
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
-import android.os.Handler
-import android.os.Looper
+import com.example.makhovyklab2randomgallery.App
+import com.example.makhovyklab2randomgallery.R
 
 class ActionsHandlerService : Service() {
 

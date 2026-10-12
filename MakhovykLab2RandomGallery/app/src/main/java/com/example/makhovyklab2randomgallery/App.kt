@@ -2,6 +2,9 @@ package com.example.makhovyklab2randomgallery
 
 import android.app.Application
 import android.content.Context
+import com.example.makhovyklab2randomgallery.data.FileGalleryStorage
+import com.example.makhovyklab2randomgallery.data.GalleryRequestHandler
+import com.example.makhovyklab2randomgallery.state.SyncState
 import com.squareup.picasso.Picasso
 import ua.cn.stu.randomgallery.RandomGalleryClient
 import java.util.UUID

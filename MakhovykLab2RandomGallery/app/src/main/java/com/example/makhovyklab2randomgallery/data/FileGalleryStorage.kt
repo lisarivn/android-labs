@@ -1,4 +1,4 @@
-package com.example.makhovyklab2randomgallery
+package com.example.makhovyklab2randomgallery.data
 
 import android.content.Context
 import ua.cn.stu.randomgallery.GalleryStorage

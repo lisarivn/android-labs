@@ -1,4 +1,4 @@
-package com.example.makhovyklab2randomgallery
+package com.example.makhovyklab2randomgallery.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.makhovyklab2randomgallery.App
+import com.example.makhovyklab2randomgallery.data.GalleryRequestHandler
+import com.example.makhovyklab2randomgallery.databinding.FragmentDetailsBinding
+import com.google.android.material.transition.MaterialContainerTransform
 import ua.cn.stu.randomgallery.GalleryListener
 import ua.cn.stu.randomgallery.LocalPhoto
 import ua.cn.stu.randomgallery.RandomGalleryClient
-import com.google.android.material.transition.MaterialContainerTransform
-import com.example.makhovyklab2randomgallery.databinding.FragmentDetailsBinding
 
 class DetailsFragment :
     Fragment(),

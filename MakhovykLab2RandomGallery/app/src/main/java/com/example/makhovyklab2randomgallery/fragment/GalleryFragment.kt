@@ -1,4 +1,4 @@
-package com.example.makhovyklab2randomgallery
+package com.example.makhovyklab2randomgallery.fragment
 
 import android.content.Context
 import android.content.res.Configuration
@@ -10,10 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.makhovyklab2randomgallery.App
+import com.example.makhovyklab2randomgallery.adapter.GalleryAdapter
+import com.example.makhovyklab2randomgallery.R
+import com.example.makhovyklab2randomgallery.state.SyncState
+import com.example.makhovyklab2randomgallery.databinding.FragmentGalleryBinding
 import ua.cn.stu.randomgallery.GalleryListener
 import ua.cn.stu.randomgallery.LocalPhoto
 import ua.cn.stu.randomgallery.RandomGalleryClient
-import com.example.makhovyklab2randomgallery.databinding.FragmentGalleryBinding
 
 class GalleryFragment :
     Fragment(),

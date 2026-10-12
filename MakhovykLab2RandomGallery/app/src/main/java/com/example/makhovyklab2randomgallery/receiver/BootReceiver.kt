@@ -1,17 +1,19 @@
-package com.example.makhovyklab2randomgallery
+package com.example.makhovyklab2randomgallery.receiver
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import android.Manifest
-import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
+import com.example.makhovyklab2randomgallery.R
+import com.example.makhovyklab2randomgallery.service.ActionsHandlerService
 
 class BootReceiver : BroadcastReceiver() {
 

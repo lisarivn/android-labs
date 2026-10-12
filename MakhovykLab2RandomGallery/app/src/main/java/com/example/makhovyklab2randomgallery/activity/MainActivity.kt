@@ -1,17 +1,21 @@
-package com.example.makhovyklab2randomgallery
+package com.example.makhovyklab2randomgallery.activity
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
+import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.example.makhovyklab2randomgallery.App
+import com.example.makhovyklab2randomgallery.fragment.GalleryFragment
+import com.example.makhovyklab2randomgallery.R
+import com.example.makhovyklab2randomgallery.service.SyncService
+import com.example.makhovyklab2randomgallery.state.SyncState
 import com.example.makhovyklab2randomgallery.databinding.ActivityMainBinding
 
 class MainActivity :

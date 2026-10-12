@@ -1,4 +1,4 @@
-package com.example.makhovyklab2randomgallery
+package com.example.makhovyklab2randomgallery.data
 
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Request
@@ -9,6 +9,7 @@ import ua.cn.stu.randomgallery.LocalPhoto
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.util.TreeMap
+import kotlin.collections.get
 
 class GalleryRequestHandler :
     RequestHandler(),
