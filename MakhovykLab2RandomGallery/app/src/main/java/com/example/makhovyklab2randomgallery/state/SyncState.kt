@@ -60,8 +60,12 @@ class SyncState(context: Context) {
     }
 
     fun setProgressPercentage(value: Int) {
-        progressPercentage = value
-        notifyListeners()
+        handler.post {
+            progressPercentage = value
+            listeners.toList().forEach { listener ->
+                listener.onSyncStateChanged(this)
+            }
+        }
     }
 
     private fun notifyListeners() {

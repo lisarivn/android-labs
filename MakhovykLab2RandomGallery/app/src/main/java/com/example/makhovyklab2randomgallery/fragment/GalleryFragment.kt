@@ -201,10 +201,20 @@ class GalleryFragment :
 
     override fun onSyncFinished() {
         Handler(Looper.getMainLooper()).post {
+            if (_binding == null) return@post
+
+            val photos = galleryClient.getLocalGallery()
+
+            adapter.submitList(photos)
+
+            binding.emptyTextView.visibility =
+                if (photos.isEmpty()) View.VISIBLE else View.GONE
+
+            binding.galleryRecyclerView.visibility =
+                if (photos.isEmpty()) View.GONE else View.VISIBLE
+
             binding.emptyTextView.text =
-                getString(
-                    R.string.synchronization_completed
-                )
+                getString(R.string.synchronization_completed)
         }
     }
 
