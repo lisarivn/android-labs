@@ -77,8 +77,23 @@ class LicenseListActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { state ->
-                    renderState(state)
+
+                launch {
+                    viewModel.uiState.collect { state ->
+                        renderState(state)
+                    }
+                }
+
+                launch {
+                    viewModel.isRefreshing.collect { isRefreshing ->
+                        btnRefresh.isEnabled = !isRefreshing
+
+                        if (isRefreshing) {
+                            btnRefresh.text = "Оновлення..."
+                        } else {
+                            btnRefresh.text = "Оновити список"
+                        }
+                    }
                 }
             }
         }

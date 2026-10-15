@@ -23,6 +23,9 @@ class LicenseListViewModel(
     val uiState: StateFlow<UiState<List<LicenseEntity>>> =
         _uiState.asStateFlow()
 
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing: StateFlow<Boolean> = _isRefreshing.asStateFlow()
+
     // after creating the ViewModel, we start observing the local DB
     // and try to update it with API
     init {
@@ -52,25 +55,33 @@ class LicenseListViewModel(
     }
 
     fun refreshLicenses() {
+        if (_isRefreshing.value) return
+
         viewModelScope.launch {
-            val result = repository.refreshLicenses()
+            _isRefreshing.value = true
 
-            if (result.isFailure) {
-                val currentState = _uiState.value
+            try {
+                val result = repository.refreshLicenses()
 
-                if (currentState is UiState.Success) {
-                    _uiState.value = currentState.copy(isOffline = true)
+                if (result.isFailure) {
+                    val currentState = _uiState.value
+
+                    if (currentState is UiState.Success) {
+                        _uiState.value = currentState.copy(isOffline = true)
+                    } else {
+                        _uiState.value = UiState.Error(
+                            "Не вдалося оновити список. Перевірте інтернет."
+                        )
+                    }
                 } else {
-                    _uiState.value = UiState.Error(
-                        "Не вдалося завантажити ліцензії. Перевірте підключення до інтернету."
-                    )
-                }
-            } else {
-                val currentState = _uiState.value
+                    val currentState = _uiState.value
 
-                if (currentState is UiState.Success) {
-                    _uiState.value = currentState.copy(isOffline = false)
+                    if (currentState is UiState.Success) {
+                        _uiState.value = currentState.copy(isOffline = false)
+                    }
                 }
+            } finally {
+                _isRefreshing.value = false
             }
         }
     }
