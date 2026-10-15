@@ -5,6 +5,7 @@ import com.example.licenseexplorerlab4.data.local.LicenseEntity
 import com.example.licenseexplorerlab4.data.remote.LicenseApiService
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.CancellationException
 
 class LicenseRepository(
     private val api: LicenseApiService,
@@ -23,19 +24,18 @@ class LicenseRepository(
     }
 
     // load list from the API and update the cache
+
     suspend fun refreshLicenses(): Result<Unit> {
         return try {
-            val remoteLicenses = api.getLicenses() // execute an HTTP-req
+            val remoteLicenses = api.getLicenses()
 
-            // read records that have already been saved
             val localLicenses = dao.getAllOnce()
-                // convert list into a dict, where the key is the license ID
                 .associateBy { it.key }
 
-            val updatedLicenses = remoteLicenses.map { remote ->
+            val changedLicenses = remoteLicenses.mapNotNull { remote ->
                 val local = localLicenses[remote.key]
 
-                LicenseEntity(
+                val updated = LicenseEntity(
                     key = remote.key,
                     name = remote.name,
                     spdxId = remote.spdxId,
@@ -46,15 +46,22 @@ class LicenseRepository(
                     conditions = local?.conditions,
                     limitations = local?.limitations
                 )
+
+                if (updated != local) updated else null
             }
 
-            dao.insertLicenses(updatedLicenses)
+            if (changedLicenses.isNotEmpty()) {
+                dao.insertLicenses(changedLicenses)
+            }
 
             Result.success(Unit)
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
+
 
     // load details of license and save it
     suspend fun refreshLicenseDetails(key: String): Result<Unit> {
@@ -76,6 +83,8 @@ class LicenseRepository(
             dao.insertLicense(entity)
 
             Result.success(Unit)
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
             Result.failure(e)
         }

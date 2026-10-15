@@ -107,13 +107,20 @@ class LicenseDetailActivity : AppCompatActivity() {
 
                 displayLicense(state.data)
 
-                if (state.isOffline) {
-                    tvStatus.text =
+                val hasCachedDetails = !state.data.body.isNullOrBlank()
+
+                tvStatus.text = when {
+                    state.isOffline && !hasCachedDetails ->
+                        "You're offline. Full license details haven't been cached yet."
+
+                    state.isOffline ->
                         "You're offline. Showing saved data."
-                    tvStatus.visibility = View.VISIBLE
-                } else {
-                    tvStatus.visibility = View.GONE
+
+                    else -> ""
                 }
+
+                tvStatus.visibility =
+                    if (tvStatus.text.isNotEmpty()) View.VISIBLE else View.GONE
             }
 
             is UiState.Error -> {
