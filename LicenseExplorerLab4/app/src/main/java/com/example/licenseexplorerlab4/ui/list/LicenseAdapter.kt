@@ -38,7 +38,7 @@ class LicenseAdapter(
         val license = getItem(position)
 
         holder.name.text = license.name
-        holder.spdxId.text = "SPDX: ${license.spdxId ?: "Невідомий"}"
+        holder.spdxId.text = "SPDX: ${license.spdxId ?: "Uknown"}"
 
         holder.itemView.setOnClickListener {
             onLicenseClick(license)

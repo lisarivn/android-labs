@@ -14,6 +14,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.core.view.ViewCompat
+import android.content.Intent
+import com.example.licenseexplorerlab4.ui.detail.LicenseDetailActivity
 import androidx.core.view.WindowInsetsCompat
 import com.example.licenseexplorerlab4.LicenseApplication
 import com.example.licenseexplorerlab4.R
@@ -61,11 +63,11 @@ class LicenseListActivity : AppCompatActivity() {
         val btnRefresh = findViewById<Button>(R.id.btnRefresh)
 
         adapter = LicenseAdapter { license ->
-            Toast.makeText(
-                this,
-                "Обрано: ${license.name}",
-                Toast.LENGTH_SHORT
-            ).show()
+            val intent = Intent(this, LicenseDetailActivity::class.java).apply {
+                putExtra(LicenseDetailActivity.EXTRA_LICENSE_KEY, license.key)
+            }
+
+            startActivity(intent)
         }
 
         recyclerView.layoutManager = LinearLayoutManager(this)
