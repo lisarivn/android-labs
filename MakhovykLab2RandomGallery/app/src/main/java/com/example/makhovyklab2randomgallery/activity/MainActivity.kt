@@ -132,6 +132,8 @@ class MainActivity :
             startLocalSync()
         }
 
+        kotlin.Result
+
         requestNotificationPermission()
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->

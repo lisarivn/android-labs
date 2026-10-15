@@ -1,4 +1,3 @@
-
 package com.example.makhovyklab1var16.background
 
 import android.content.Context
